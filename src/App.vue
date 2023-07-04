@@ -1,0 +1,92 @@
+<script setup>
+import { reactive } from 'vue';
+import Cabecalho from './components/Cabecalho.vue';
+import Historico from './components/Historico.vue';
+import Formulario from './components/Formulario.vue';
+
+const state = reactive({
+  filtro: "",
+  numberOne: "",
+  numberTwo: "",
+  operations: [
+    {
+      firstNumber: 10,
+      secondNumber: 10,
+      operation: "x",
+      result: 20
+    }
+  ]
+})
+
+const operation = () => {
+  const { filtro, numberOne, numberTwo } = state;
+
+  switch (filtro) {
+    case "somar":
+      return numberOne + numberTwo;
+    case "subtrair":
+      return numberOne - numberTwo;
+    case "multiplicar":
+      return numberOne * numberTwo;
+    case "dividir":
+      return numberOne / numberTwo;
+    case "resto":
+      return numberOne % numberTwo;
+    case "potencia":
+      return numberOne ** numberTwo;
+    case "raiz":
+      return numberOne ** (1 / numberTwo);
+  }
+}
+
+const getSinal = () => {
+  const { filtro } = state;
+
+  switch (filtro) {
+    case "somar":
+      return "+";
+    case "subtrair":
+      return "-";
+    case "multiplicar":
+      return "x";
+    case "dividir":
+      return "/";
+    case "resto":
+      return "modulo de";
+    case "potencia":
+      return "elevado a";
+    case "raiz":
+      return "raiz de";
+  }
+}
+const registrarOperacao = () => {
+  const novaOperacao = {
+    firstNumber: state.numberOne,
+    secondNumber: state.numberTwo,
+    operation: getSinal(),
+    result: operation()
+  }
+  state.operations.push(novaOperacao);
+}
+
+</script>
+
+<template>
+  <div class="container">
+    <Cabecalho />
+
+
+    <Formulario :trocarFiltro="event => state.filtro = event.target.value"
+      :addNumberOne="event => state.numberOne = Number.parseFloat(event.target.value)"
+      :addNumberTwo="event => state.numberTwo = Number.parseFloat(event.target.value)"
+      :zeroStyle="state.numberTwo == 0 && state.filtro == 'dividir'" :registrarOperation="registrarOperacao"
+      :operation="operation()" :conditionResult="operation() || operation() == 0"
+      :conditionDefault="(state.numberOne == 0 || state.numberTwo == 0) && (state.filtro !== 'resto') && (operation() !== 'Infinity')" />
+
+
+    <Historico :operations="state.operations" />
+
+  </div>
+</template>
+
+<style scoped></style>
