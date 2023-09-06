@@ -13,7 +13,7 @@ const state = reactive({
       firstNumber: 10,
       secondNumber: 10,
       operation: "x",
-      result: 20
+      result: 100
     }
   ]
 })
@@ -66,7 +66,7 @@ const registrarOperacao = () => {
     operation: getSinal(),
     result: operation()
   }
-  state.operations.push(novaOperacao);
+  state.operations.unshift(novaOperacao);
 }
 
 </script>
@@ -89,4 +89,14 @@ const registrarOperacao = () => {
   </div>
 </template>
 
-<style scoped></style>
+<style>
+:root{
+  --forest: #97D8C4;
+  --dark: #2A2D34;
+  --rose: #D81159;
+  --sky: #118AB2;
+  --platium: #E6E8E6;
+  --white: #fcfcfc;
+  --jasmine: #FFD972; 
+}
+</style>

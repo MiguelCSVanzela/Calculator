@@ -5,7 +5,7 @@ const props = defineProps(["operation", "trocarFiltro", "registrarOperation", "a
 <template>
     <form @submit.prevent="">
         <div class="row">
-            <select @change="props.trocarFiltro" class="col-2 m-auto ">
+            <select @change="props.trocarFiltro" class="col-2 m-auto operation-container ">
                 <option value="" selected>--Operações--</option>
                 <option value="somar">Somar</option>
                 <option value="subtrair">Subtrair</option>
@@ -16,35 +16,86 @@ const props = defineProps(["operation", "trocarFiltro", "registrarOperation", "a
                 <option value="potencia">Potência</option>
             </select>
         </div>
-        <div class="row mt-5">
-            <div class="col-6">
-                <input type="number" class="form-control" placeholder="Number One" @keyup="props.addNumberOne">
-            </div>
-            <div class="col-6">
-                <input :class="{ zero: props.zeroStyle }" type="number" class="form-control" placeholder="Number Two"
+        <div class="row mt-5 input-container">
+                <input type="number" class="form-control text-center" placeholder="Number One" @keyup="props.addNumberOne">
+    
+                <input :class="{ zero: props.zeroStyle }" type="number" class="form-control text-center" placeholder="Number Two"
                     @keyup="props.addNumberTwo">
-            </div>
         </div>
-        <div class="row text-info text-center h1">
-            <span v-if="props.conditionResult">
-                {{ props.operation }}
-                <button @click="props.registrarOperation" class="btn btn-outline-dark">
+        <div class="row text-center">
+            <div  v-if="props.conditionResult" class="result-container">
+                <span class="result">
+                    {{ props.operation }}
+                </span>
+                <button @click="props.registrarOperation" class="button">
                     Registre
                 </button>
-            </span>
-            <span v-else-if="props.conditionDefault">
+            </div>
+            <div class="form-title" v-else-if="props.conditionDefault">
                 Preencha os campos
                 acima para obter um
                 resultado
-            </span>
+            </div>
         </div>
     </form>
 </template>
 
 <style scoped>
 .zero {
-    background-color: #0a0202;
-    color: #e85555;
+    background-color: var(--dark);
+    color: var(--rose);
     transition: all 0.5s ease;
+}
+
+.operation-container{
+    border-radius: 8px;
+    font-size: 24px;
+    text-align: center;
+}
+.input-container{
+    display: flex; 
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+.form-control{
+    width: 400px;
+    margin: 0 16px;
+    box-shadow: none;
+}
+
+.button{
+    color: var(--forest);
+    border: 0.5px solid var(--forest);
+    border-radius: 8px;
+    background-color: transparent;
+    text-transform: uppercase;
+    margin: 16px 0;
+    font-size: 32px;
+    transition: all 0.3s ease;
+}
+
+.button:hover{
+    color: var(--white); 
+    background-color: var(--forest);
+}
+
+.result-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.result{
+    color: var(--dark); 
+    font-size: 24px;
+    border: 1px solid var(--dark); 
+    padding: 6px;
+    margin-right: 8px;
+    border-radius: 8px;
+}
+.form-title {
+    color: var(--dark);
+    font-size: 32px;
 }
 </style>

@@ -11,3 +11,20 @@ const props = defineProps(["operations"]);
         </ul>
     </div>
 </template>
+
+<style scoped>
+
+    .list-group{
+        display: flex; 
+        flex-direction: column; 
+        align-items: center;
+
+    }
+    .list-group-item{
+        width: 600px;
+        text-align: center;
+        font-size: 24px;
+        color: var(--forest);
+        margin-bottom: 16px;
+    }
+</style>
