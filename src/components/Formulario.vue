@@ -1,6 +1,7 @@
 <script setup>
-const props = defineProps(["operation", "trocarFiltro", "registrarOperation", "addNumberOne", "addNumberTwo", "zeroStyle",
-    "conditionResult", "conditionDefault"])
+const props = defineProps([ "operation", "trocarFiltro", "registrarOperation", "addNumberOne", "addNumberTwo", "addYear",  "zeroStyle",
+    "conditionResult", "conditionDefault", "useResultado"])
+
 </script>
 <template>
     <form @submit.prevent="">
@@ -17,9 +18,9 @@ const props = defineProps(["operation", "trocarFiltro", "registrarOperation", "a
             </select>
         </div>
         <div class="row mt-5 input-container">
-                <input type="number" class="form-control text-center" placeholder="Number One" @keyup="props.addNumberOne">
+                <input type="number" class="form-control text-center inputOne" placeholder="Number One" @keyup="props.addNumberOne">
     
-                <input :class="{ zero: props.zeroStyle }" type="number" class="form-control text-center" placeholder="Number Two"
+                <input :class="{ zero: props.zeroStyle }" type="number" class="form-control text-center inputSecond" placeholder="Number Two"
                     @keyup="props.addNumberTwo">
         </div>
         <div class="row text-center">
@@ -29,6 +30,9 @@ const props = defineProps(["operation", "trocarFiltro", "registrarOperation", "a
                 </span>
                 <button @click="props.registrarOperation" class="button">
                     Registre
+                </button>
+                <button @click="props.useResultado" class="button">
+                    Use
                 </button>
             </div>
             <div class="form-title" v-else-if="props.conditionDefault">
@@ -70,7 +74,7 @@ const props = defineProps(["operation", "trocarFiltro", "registrarOperation", "a
     border-radius: 8px;
     background-color: transparent;
     text-transform: uppercase;
-    margin: 16px 0;
+    margin: 16px 10px;
     font-size: 32px;
     transition: all 0.3s ease;
 }

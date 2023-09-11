@@ -8,12 +8,14 @@ const state = reactive({
   filtro: "",
   numberOne: "",
   numberTwo: "",
+  dataAtual: "", 
   operations: [
     {
       firstNumber: 10,
       secondNumber: 10,
       operation: "x",
-      result: 100
+      result: 100, 
+      feitoEm: "8/9/2023 - 20:44"
     }
   ]
 })
@@ -59,14 +61,30 @@ const getSinal = () => {
       return "raiz de";
   }
 }
+
+const getDataAtual= () => {
+const d = new Date()
+  return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()} - ${d.getHours()}:${d.getMinutes()}`
+}
+
+
+const useResult = () => {
+        let inputOne = document.querySelector(".inputOne"); 
+        let inputTwo = document.querySelector(".inputSecond"); 
+        inputOne.value =  operation()
+        inputTwo.value = 0
+    }
+
 const registrarOperacao = () => {
   const novaOperacao = {
     firstNumber: state.numberOne,
     secondNumber: state.numberTwo,
     operation: getSinal(),
-    result: operation()
+    result: operation(),
+    feitoEm: getDataAtual()
   }
   state.operations.unshift(novaOperacao);
+  console.log(getDataAtual())
 }
 
 </script>
@@ -79,10 +97,13 @@ const registrarOperacao = () => {
     <Formulario :trocarFiltro="event => state.filtro = event.target.value"
       :addNumberOne="event => state.numberOne = Number.parseFloat(event.target.value)"
       :addNumberTwo="event => state.numberTwo = Number.parseFloat(event.target.value)"
+      :addYear="event => state.dataAtual = event.target.value"
       :zeroStyle="state.numberTwo == 0 && state.filtro == 'dividir'" :registrarOperation="registrarOperacao"
       :operation="operation()" :conditionResult="operation() || operation() == 0"
-      :conditionDefault="(state.numberOne == 0 || state.numberTwo == 0) && (state.filtro !== 'resto') && (operation() !== 'Infinity')" />
-
+      :conditionDefault="(state.numberOne == 0 || state.numberTwo == 0) && (state.filtro !== 'resto') && (operation() !== 'Infinity')" 
+      :useResultado="useResult" 
+      />
+      
 
     <Historico :operations="state.operations" />
 

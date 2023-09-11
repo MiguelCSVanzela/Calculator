@@ -6,7 +6,7 @@ const props = defineProps(["operations"]);
     <div class="row">
         <ul class="list-group" v-for="item in props.operations">
             <li class="list-group-item">
-                {{ `${item.firstNumber} ${item.operation} ${item.secondNumber} = ${item.result}` }}
+                {{ `${item.firstNumber} ${item.operation} ${item.secondNumber} = ${item.result} - ${item.feitoEm}` }}
             </li>
         </ul>
     </div>
